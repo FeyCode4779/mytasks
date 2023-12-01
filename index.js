@@ -3,7 +3,7 @@ import mongoose  from "mongoose";
 import Tasks from "./models/tasksModel.js";
 const app = express()
 app.use(express.json())
-const port = 6666;
+const port = 8000;
 
 app.get('/', async(req, res)=>{
     const tasks = await Tasks.find()
@@ -22,14 +22,14 @@ app.post('/',async(req, res)=>{
 })
 
 app.put('/:id',async(req, res)=>{
-    const { title , date, finished} = req.body;
+    const { title , date, isFinished} = req.body;
 
     const task = await Tasks.findById(req.params.id)
 
     if(task){
-        task.title
-        task.date
-        task.finished
+        task.title=title
+        task.date=date
+        task.isFinished=isFinished
         const updatedTask = await task.save()
 
         res.json(updatedTask)
